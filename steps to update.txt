@@ -1,0 +1,6 @@
+npm run build
+cd dist
+git add -A
+git commit -m "Update site"
+git push -f https://github.com/jcaballe1/wind-turbine-demo.git HEAD:gh-pages
+cd ..

@@ -56,6 +56,8 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           viewBox="0 0 1000 300"
           className="w-full h-auto"
           xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Animated diagram showing wind turning a turbine, magnetic field in the generator, and electricity flowing to a factory. Wind speed, magnet strength, and power output are visualized."
         >
         <defs>
           {/* Gradient for wire */}
@@ -133,11 +135,8 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           </g>
           
           {/* Label */}
-          <text x="130.5" y="270" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
-            Mechanical Input
-          </text>
-          <text x="130.5" y="288" textAnchor="middle" fill="#94a3b8" fontSize="12">
-            (Wind Energy)
+          <text x="130.5" y="255" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
+            Wind Input
           </text>
         </g>
 
@@ -235,11 +234,8 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           <text x="350" y="35" textAnchor="middle" fill="#dc2626" fontSize="14" fontWeight="600">
             Neodymium Magnet ({magnetStrength}%)
           </text>
-          <text x="350" y="270" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
-            The Invisible Gears
-          </text>
-          <text x="350" y="288" textAnchor="middle" fill="#d97706" fontSize="12">
-            (Copper Coil)
+          <text x="350" y="255" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
+            Magnetic Gears
           </text>
         </g>
 
@@ -334,9 +330,6 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           {/* Label */}
           <text x="820" y="235" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
             Power to Grid
-          </text>
-          <text x="820" y="253" textAnchor="middle" fill="#94a3b8" fontSize="12">
-            ({currentPower.toFixed(1)} MW)
           </text>
         </g>
 

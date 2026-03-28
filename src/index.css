@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +8,8 @@
   /* Blue slider for Wind Speed */
   input[type="range"].slider-blue::-webkit-slider-thumb {
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: #2563eb;
     cursor: pointer;
@@ -16,8 +18,8 @@
   }
 
   input[type="range"].slider-blue::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: #2563eb;
     cursor: pointer;
@@ -28,8 +30,8 @@
   /* Red slider for Magnet Strength */
   input[type="range"].slider-red::-webkit-slider-thumb {
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: #dc2626;
     cursor: pointer;
@@ -38,10 +40,32 @@
   }
 
   input[type="range"].slider-red::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: #dc2626;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Green slider for Wind Farm Scale */
+  input[type="range"].slider-green::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #059669;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  input[type="range"].slider-green::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #059669;
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -63,13 +87,51 @@
   input[type="range"].slider-red::-moz-range-thumb:hover {
     background: #b91c1c;
   }
+
+  input[type="range"].slider-green::-webkit-slider-thumb:hover {
+    background: #047857;
+  }
+
+  input[type="range"].slider-green::-moz-range-thumb:hover {
+    background: #047857;
+  }
+
+  /* Desktop: smaller thumbs */
+  @media (min-width: 1024px) {
+    input[type="range"].slider-blue::-webkit-slider-thumb,
+    input[type="range"].slider-red::-webkit-slider-thumb,
+    input[type="range"].slider-green::-webkit-slider-thumb {
+      width: 18px;
+      height: 18px;
+    }
+    input[type="range"].slider-blue::-moz-range-thumb,
+    input[type="range"].slider-red::-moz-range-thumb,
+    input[type="range"].slider-green::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fafaf9;
+  @apply text-slate-800;
+}
+
+/* Global focus-visible ring for all interactive elements */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 4px;
 }
