@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #F9F8F4;
+  color: #1a1a1a;
+}
+
 @layer utilities {
   /* Blue slider for Wind Speed */
   input[type="range"].slider-blue::-webkit-slider-thumb {

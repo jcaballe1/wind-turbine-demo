@@ -6,6 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        nobel: {
+          cream: '#F9F8F4',
+          dark: '#1a1a1a',
+          gold: '#C5A059',
+        },
+      },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         serif: ['Lora', 'Georgia', 'serif'],

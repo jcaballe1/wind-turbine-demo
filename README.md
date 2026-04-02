@@ -39,12 +39,15 @@ The built files will be in the `dist` directory.
 
 ## Features
 
+- Interactive educational Landing Page explaining the role of rare-earth magnets.
 - Interactive wind speed slider (0-100%)
 - Real-time power output calculation using cubic relationship (realistic physics)
-- Live line chart showing power generation history
-- Critical materials supply chain information
-- Responsive design with Tailwind CSS
-- Professional UI matching the original HTML applet aesthetic
+- Visual Generator showing mechanical and magnetic components.
+- Live line chart showing power generation history.
+- Critical materials supply chain information.
+- Interactive Quiz to test your knowledge.
+- Smooth animations and professional UI using Framer Motion and Tailwind CSS.
+- Responsive design tailored for educational purposes.
 
 ## Technologies Used
 
@@ -52,3 +55,13 @@ The built files will be in the `dist` directory.
 - **Vite** - Build tool and dev server
 - **Tailwind CSS** - Utility-first CSS framework
 - **Recharts** - Charting library for React
+- **Framer Motion** - Animation library
+- **Lucide React** - Icon library
+
+## Acknowledgments
+
+This educational tool was made possible by several excellent open-source libraries:
+- [Nivo](https://nivo.rocks/) by Raphaël Benitte - Used for the complex and interactive Sankey diagram visualizations.
+- [Recharts](https://recharts.org/) - Used for the real-time power generation charts.
+- [Framer Motion](https://www.framer.com/motion/) - Used for smooth UI animations and page transitions.
+- [Lucide](https://lucide.dev/) - Used for the clean, consistent iconography.

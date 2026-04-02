@@ -97,10 +97,10 @@ const Quiz = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-nobel-cream rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-5 border-b border-slate-200 sticky top-0 bg-white rounded-t-2xl z-10">
+        <div className="flex items-center justify-between p-5 border-b border-stone-200 sticky top-0 bg-nobel-cream rounded-t-2xl z-10">
           <div>
             <h2 className="text-xl font-bold text-slate-800">Test Your Knowledge</h2>
             <p className="text-sm text-slate-500">6 questions on critical materials &amp; wind energy</p>
@@ -127,7 +127,7 @@ const Quiz = ({ onClose }) => {
                   <div key={qi} className={`rounded-xl border-2 p-4 transition-all duration-200 ${
                     submitted
                       ? isCorrect ? 'border-emerald-300 bg-emerald-50' : 'border-red-300 bg-red-50'
-                      : answers[qi] !== null ? 'border-blue-200 bg-blue-50' : 'border-slate-200 bg-white'
+                      : answers[qi] !== null ? 'border-nobel-gold bg-amber-50/60' : 'border-stone-200 bg-white/70'
                   }`}>
                     <p className="text-sm font-bold text-slate-800 mb-3">
                       <span className="text-slate-500 mr-1">Q{qi + 1}.</span> {q.question}
@@ -136,7 +136,7 @@ const Quiz = ({ onClose }) => {
                       {q.options.map((opt, oi) => {
                         const isSelected = answers[qi] === oi;
                         const isRight = oi === q.correct;
-                        let optClass = 'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 cursor-pointer';
+                        let optClass = 'border-stone-200 bg-white hover:bg-stone-50 hover:border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-1 cursor-pointer';
                         let animateState = "default";
                         
                         if (submitted) {
@@ -149,7 +149,7 @@ const Quiz = ({ onClose }) => {
                             animateState = "incorrect";
                           }
                         } else if (isSelected) {
-                          optClass = 'border-blue-500 bg-blue-50 ring-2 ring-blue-300';
+                          optClass = 'border-nobel-gold bg-amber-50 ring-2 ring-[#C5A059]/50';
                           animateState = "selected";
                         }
 
@@ -190,15 +190,15 @@ const Quiz = ({ onClose }) => {
               })}
             </div>
 
-            <div className="p-5 border-t border-slate-200 sticky bottom-0 bg-white rounded-b-2xl">
+            <div className="p-5 border-t border-stone-200 sticky bottom-0 bg-nobel-cream rounded-b-2xl">
               {!submitted ? (
                 <button
                   onClick={() => setSubmitted(true)}
                   disabled={!allAnswered}
                   className={`w-full py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
                     allAnswered
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
-                      : 'bg-slate-200 text-slate-500 cursor-not-allowed'
+                      ? 'bg-nobel-gold hover:bg-[#b8904d] text-white shadow-lg'
+                      : 'bg-stone-200 text-stone-500 cursor-not-allowed'
                   }`}
                 >
                   {allAnswered ? 'Submit Answers' : `Answer all questions (${answers.filter(a => a !== null).length}/${questions.length})`}
@@ -215,13 +215,13 @@ const Quiz = ({ onClose }) => {
                   <div className="flex gap-3 justify-center">
                     <button
                       onClick={() => { setAnswers(Array(questions.length).fill(null)); setSubmitted(false); }}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-all"
+                      className="bg-nobel-gold hover:bg-[#b8904d] text-white px-6 py-2 rounded-lg text-sm font-medium transition-all"
                     >
                       Try Again
                     </button>
                     <button
                       onClick={onClose}
-                      className="bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-2 rounded-lg text-sm font-medium transition-all"
+                      className="bg-stone-200 hover:bg-stone-300 text-stone-700 px-6 py-2 rounded-lg text-sm font-medium transition-all"
                     >
                       Close
                     </button>

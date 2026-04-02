@@ -135,7 +135,7 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           </g>
           
           {/* Label */}
-          <text x="130.5" y="255" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
+          <text x="130.5" y="265" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
             Wind Input
           </text>
         </g>
@@ -234,7 +234,7 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           <text x="350" y="35" textAnchor="middle" fill="#dc2626" fontSize="14" fontWeight="600">
             Neodymium Magnet ({magnetStrength}%)
           </text>
-          <text x="350" y="255" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
+          <text x="350" y="265" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
             Magnetic Gears
           </text>
         </g>
@@ -328,7 +328,7 @@ const VisualGenerator = ({ windSpeed, magnetStrength, currentPower }) => {
           )}
           
           {/* Label */}
-          <text x="820" y="235" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
+          <text x="820" y="265" textAnchor="middle" fill="#475569" fontSize="14" fontWeight="600">
             Power to Grid
           </text>
         </g>
