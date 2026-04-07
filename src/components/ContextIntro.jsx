@@ -16,7 +16,9 @@ const getSteps = (setEnlargedImage) => [
           <img 
             src="images/generator-diagram.png"
             alt="Schematic of a Permanent Magnet Synchronous Generator" 
-            className="max-h-96 w-full object-contain"
+            className="max-h-96 w-full object-contain select-none pointer-events-none"
+            draggable="false"
+            onContextMenu={(e) => e.preventDefault()}
           />
         </div>
         <span className="text-[10px] text-slate-500 mt-2 font-mono text-center">
@@ -38,7 +40,9 @@ const getSteps = (setEnlargedImage) => [
           <img 
             src="images/AEE_Grafik_Windenergie_jul21_300dpi.jpg"
             alt="Comparison of Geared and Direct-Drive Wind Turbines" 
-            className="max-h-96 w-full object-contain"
+            className="max-h-96 w-full object-contain select-none pointer-events-none"
+            draggable="false"
+            onContextMenu={(e) => e.preventDefault()}
           />
         </div>
         <span className="text-[10px] text-slate-500 mt-2 font-mono text-center leading-tight">
@@ -294,7 +298,9 @@ const ContextIntro = ({ onComplete }) => {
               <img
                 src={enlargedImage}
                 alt="Enlarged view"
-                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl select-none"
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
                 onClick={(e) => e.stopPropagation()}
               />
               <button
