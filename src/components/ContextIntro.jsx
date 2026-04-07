@@ -117,13 +117,13 @@ const getSteps = (setEnlargedImage) => [
     body: (<>In the simulation ahead, you'll control a wind turbine's design by choosing the magnet type. You'll see the consequences across three dimensions that are always in tension with each other: Power Output, Total Cost (CAPEX + OPEX), and Environmental & Supply-Chain Risk.<br /><br />There is no single perfect answer. Your job is to explore the trade-offs and decide what matters most.</>),
     source: 'Educational Tool Context | HZ University of Applied Sciences',
     visual: (
-      <div className="flex justify-center gap-3 py-4 flex-wrap w-full">
+      <div className="flex justify-center gap-4 py-4 px-8 flex-wrap w-full">
         {[
           { label: 'Energy Yield', icon: Zap, sub: 'Power / Efficiency', color: 'bg-blue-50 border-blue-200 text-blue-700' },
           { label: 'Economics', icon: Factory, sub: 'CAPEX & LCOE', color: 'bg-amber-50 border-amber-200 text-amber-700' },
           { label: 'Risk & Impact', icon: AlertTriangle, sub: 'Supply & Ecology', color: 'bg-emerald-50 border-emerald-200 text-emerald-700' },
         ].map(({ label, icon: IconComponent, sub, color }) => (
-          <div key={label} className={`flex flex-col items-center gap-2 p-3 rounded-lg border ${color} flex-1 min-w-[100px]`}>
+          <div key={label} className={`flex flex-col items-center gap-2 p-4 rounded-lg border ${color} flex-1 min-w-[130px] max-w-[180px]`}>
             <IconComponent size={24} />
             <div className="text-center">
               <div className="text-[11px] font-bold uppercase tracking-wide">{label}</div>

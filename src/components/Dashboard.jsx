@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { Zap, DollarSign, FlaskConical, Target, TrendingDown, Magnet, Wind, BookOpen, TrendingUp, Globe, Recycle, AlertTriangle, Clock, Leaf, Mountain, Factory, Car, Shield, Wrench, HelpCircle, Flag, Ban, Smartphone, RefreshCw } from 'lucide-react';
+import { Zap, DollarSign, FlaskConical, Target, TrendingDown, Magnet, Wind, BookOpen, TrendingUp, Globe, Recycle, AlertTriangle, Clock, Leaf, Mountain, Factory, Car, Shield, Wrench, HelpCircle, Flag, Ban, Smartphone, RefreshCw, Hammer, Flame, X } from 'lucide-react';
 import { ResponsiveSankey } from '@nivo/sankey';
 import VisualGenerator from './VisualGenerator';
 import LoadingState from './LoadingState';
@@ -75,7 +75,6 @@ const Dashboard = ({ onBackToIntro, onOpenQuiz }) => {
   // ===== Supply Chain & Lifecycle State =====
   const [supplyDisruption, setSupplyDisruption] = useState(false);
   const [hoveredCountry, setHoveredCountry] = useState(null);
-  const [lifecycleRecycling, setLifecycleRecycling] = useState(false);
 
   // ===== Contextual Advisor State =====
   const [activeHint, setActiveHint] = useState(null);   // current hint object to display
@@ -784,107 +783,141 @@ const Dashboard = ({ onBackToIntro, onOpenQuiz }) => {
 
       {/* ===== Lifecycle & Recycling Modal ===== */}
       {showLifecycle && (() => {
-        const ndfebPerTurbine = 600;
-        const recoveryRate = 0.9;
-        const gen1Virgin = ndfebPerTurbine;
-        const gen2Virgin = lifecycleRecycling ? ndfebPerTurbine * (1 - recoveryRate) : ndfebPerTurbine;
-        const gen3Virgin = lifecycleRecycling ? ndfebPerTurbine * (1 - recoveryRate) : ndfebPerTurbine;
-        const totalVirgin = gen1Virgin + gen2Virgin + gen3Virgin;
-        const totalBaseline = ndfebPerTurbine * 3;
-        const totalSaved = totalBaseline - totalVirgin;
         const stages = [
-          { id: 1, label: 'Mining &\nRefining', icon: '⛏️', color: '#dc2626', bg: '#fef2f2', border: '#fecaca' },
-          { id: 2, label: 'Magnet\nManufacturing', icon: '🏭', color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe' },
-          { id: 3, label: 'Turbine\nOperation', icon: '🌬️', color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
-          { id: 4, label: 'Decom-\nmissioning', icon: '🔧', color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
-          { id: 5, label: 'End of\nLife', icon: lifecycleRecycling ? '♻️' : '🗑️', color: lifecycleRecycling ? '#059669' : '#64748b', bg: lifecycleRecycling ? '#ecfdf5' : '#f8fafc', border: lifecycleRecycling ? '#a7f3d0' : '#e2e8f0' },
+          { id: 1, label: 'Mining &\nRefining', icon: '⛏️', color: '#dc2626', bg: '#fef2f2', border: '#fecaca', subtext: '~2,000t waste/t ore', citation: '[3]' },
+          { id: 2, label: 'Magnet\nManufacturing', icon: '🏭', color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', subtext: '~600 kg NdFeB per MW' },
+          { id: 3, label: 'Turbine\nOperation', icon: '🌬️', color: '#059669', bg: '#ecfdf5', border: '#a7f3d0', subtext: '20–25 years' },
+          { id: 4, label: 'Decom-\nmissioning', icon: '🔧', color: '#d97706', bg: '#fffbeb', border: '#fde68a', subtext: 'Year 25' },
+          { id: 5, label: 'End of Life\n(Landfill / Slag)', icon: '🗑️', color: '#64748b', bg: '#f8fafc', border: '#e2e8f0', subtext: '<1% Recovered' },
         ];
+
         return (
-          <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4" onClick={() => setShowLifecycle(false)}>
+          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowLifecycle(false)}>
             <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between p-5 border-b border-slate-200">
-                <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2"><Recycle size={22} className="text-nobel-gold" /> Turbine Lifecycle &amp; Recycling Potential</h2>
-                <button onClick={() => setShowLifecycle(false)} className="text-slate-500 hover:text-slate-700 text-2xl font-bold w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100" aria-label="Close">×</button>
+              
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-slate-200">
+                <div>
+                  <h2 className="text-2xl font-bold font-serif text-slate-800 flex items-center gap-2">
+                    <Recycle size={26} className="text-slate-400" /> 
+                    The End-of-Life Reality of Offshore Wind Turbines
+                  </h2>
+                  <p className="text-sm text-slate-500 mt-1">
+                    Can we improve the current offshore wind supply chain, beyond its linear Take-Make-Waste system?
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setShowLifecycle(false)} 
+                  className="text-slate-400 hover:text-slate-700 hover:bg-slate-100 p-2 rounded-full transition-colors"
+                >
+                  <X size={24} />
+                </button>
               </div>
+
               <div className="p-6">
-                <div className="bg-stone-50 rounded-xl border border-stone-200 p-4 mb-4">
-                  <svg viewBox="0 0 920 200" className="w-full h-auto" style={{ maxHeight: '180px' }}>
+                {/* Material Flow SVG */}
+                <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 mb-5 relative">
+                  <p className="absolute top-4 left-6 text-xs font-bold uppercase tracking-widest text-slate-400">Current Material Flow</p>
+                  <svg viewBox="0 0 920 180" className="w-full h-auto mt-4" style={{ maxHeight: '160px' }}>
                     <defs>
-                      <marker id="lc-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#94a3b8" /></marker>
-                      <marker id="lc-arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#059669" /></marker>
+                      <marker id="lc-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#94a3b8" />
+                      </marker>
+                      <marker id="lc-arrow-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#ef4444" />
+                      </marker>
                     </defs>
+
+                    {/* Draw Stages */}
                     {stages.map((s, i) => {
-                      const x = 20 + i * 180; const y = 30; const w = 140; const h = 100;
+                      const x = 20 + i * 180; const y = 20; const w = 140; const h = 75;
                       return (
                         <g key={s.id}>
                           <rect x={x} y={y} width={w} height={h} rx={12} fill={s.bg} stroke={s.border} strokeWidth={2} />
-                          <text x={x + w / 2} y={y + 30} textAnchor="middle" fontSize="22">{s.icon}</text>
                           {s.label.split('\n').map((line, li) => (
-                            <text key={li} x={x + w / 2} y={y + 52 + li * 14} textAnchor="middle" fontSize="11" fontWeight="700" fill={s.color}>{line}</text>
+                            <text key={li} x={x + w / 2} y={y + 33 + li * 16} textAnchor="middle" fontSize="12" fontWeight="700" fill={s.color}>{line}</text>
                           ))}
-                          <text x={x + w / 2} y={y + h + 16} textAnchor="middle" fontSize="9" fill="#64748b">
-                            {s.id === 3 ? '20–25 yrs' : s.id === 1 ? '~2,000t waste/t ore' : s.id === 2 ? '600 kg NdFeB' : s.id === 4 ? 'Year 25' : lifecycleRecycling ? '90% recovered' : 'Materials lost'}
+                          <text x={x + w / 2} y={y + h + 20} textAnchor="middle" fontSize="11" fill="#64748b" fontWeight="500">
+                            {s.subtext}
+                            {s.citation && <tspan fontSize="9" fill="#94a3b8" baselineShift="super">{s.citation}</tspan>}
                           </text>
-                          {i < 4 && <line x1={x + w + 4} y1={y + h / 2} x2={x + w + 36} y2={y + h / 2} stroke="#94a3b8" strokeWidth={2} markerEnd="url(#lc-arrow)" />}
+                          {/* Forward Arrows */}
+                          {i < 4 && <line x1={x + w + 4} y1={y + h / 2} x2={x + w + 36} y2={y + h / 2} stroke="#94a3b8" strokeWidth={2.5} markerEnd="url(#lc-arrow)" />}
                         </g>
                       );
                     })}
-                    {lifecycleRecycling && (
-                      <g>
-                        <path d="M 810,135 L 810,180 Q 810,190 800,190 L 230,190 Q 220,190 220,180 L 220,135" fill="none" stroke="#059669" strokeWidth={2.5} strokeDasharray="6 3" markerEnd="url(#lc-arrow-green)" />
-                        <rect x={440} y={179} width={120} height={20} rx={4} fill="#059669" />
-                        <text x={500} y={193} textAnchor="middle" fontSize="10" fill="white" fontWeight="700">90% NdFeB recycle</text>
-                      </g>
-                    )}
+
+                    {/* The "Broken" Recycling Loop */}
+                    <g>
+                      <path d="M 810,110 L 810,160 Q 810,170 800,170 L 100,170 Q 90,170 90,160 L 90,110" fill="none" stroke="#ef4444" strokeWidth={2.5} strokeDasharray="8 6" markerEnd="url(#lc-arrow-red)" />
+                      <rect x={380} y={158} width={180} height={24} rx={6} fill="#ef4444" />
+                      <text x={470} y={174} textAnchor="middle" fontSize="11" fill="white" fontWeight="700" letterSpacing="1">RECYCLING LOOP BROKEN</text>
+                    </g>
                   </svg>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 mb-4">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">Enable Recycling at End-of-Life</p>
-                    <p className="text-xs text-slate-600">Hydrogen decrepitation recovers ~90% of NdFeB material</p>
+
+                {/* Educational Cards: Why is it broken? */}
+                <h3 className="text-lg font-bold text-slate-800 mb-3 px-1">Why is the recycling rate currently &lt;1%?<sup className="text-[10px] ml-0.5 text-slate-400">[1]</sup></h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  
+                  {/* Design & Liberation */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="bg-amber-100 p-2 rounded-lg text-amber-700"><Hammer size={20} /></div>
+                      <h4 className="font-bold text-slate-800 leading-tight">1. The "Liberation" Problem</h4>
+                    </div>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Turbines are not currently designed for disassembly. Magnets are heavily glued, coated in anti-corrosion resins, and tightly packed into rotors. Mechanically separating them (liberation) without shattering the brittle NdFeB material is incredibly labor-intensive.
+                    </p>
                   </div>
-                  <button
-                    onClick={() => setLifecycleRecycling(!lifecycleRecycling)}
-                    className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${lifecycleRecycling ? 'bg-emerald-600' : 'bg-slate-300'}`}
-                  >
-                    <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${lifecycleRecycling ? 'translate-x-6' : 'translate-x-1'}`} />
-                  </button>
+
+                  {/* Thermodynamics / Entropy */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="bg-red-100 p-2 rounded-lg text-red-700"><Flame size={20} /></div>
+                      <h4 className="font-bold text-slate-800 leading-tight">2. Thermodynamic Barriers</h4>
+                    </div>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      If the entire nacelle is put into an industrial shredder (standard practice), the rare earths mix with steel and copper. Re-smelting and chemically separating these dispersed elements takes massive amounts of energy.<sup className="text-[10px] ml-0.5 text-slate-400">[2]</sup>
+                    </p>
+                  </div>
+
+                  {/* Economics */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="bg-blue-100 p-2 rounded-lg text-blue-700"><TrendingDown size={20} /></div>
+                      <h4 className="font-bold text-slate-800 leading-tight">3. Economic Reality</h4>
+                    </div>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Mining virgin ore in countries with low labor costs and lax environmental regulations is much cheaper than paying European engineers to dismantle and chemically recycle old magnets.
+                    </p>
+                  </div>
+
                 </div>
-                <div className="grid grid-cols-3 gap-4 mb-4">
-                  {[1, 2, 3].map(gen => {
-                    const virgin = gen === 1 ? gen1Virgin : gen === 2 ? gen2Virgin : gen3Virgin;
-                    const recycled = ndfebPerTurbine - virgin;
-                    return (
-                      <div key={gen} className="rounded-lg border border-slate-200 p-3">
-                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wide mb-1">Generation {gen}</p>
-                        <p className="text-xs text-slate-500 mb-2">Years {(gen - 1) * 25}–{gen * 25}</p>
-                        <div className="space-y-1">
-                          <div className="flex items-center justify-between text-xs"><span className="text-red-700">⛏️ Virgin</span><span className="font-bold">{virgin.toFixed(0)} kg</span></div>
-                          {lifecycleRecycling && gen > 1 && <div className="flex items-center justify-between text-xs"><span className="text-emerald-700">♻️ Recycled</span><span className="font-bold text-emerald-700">{recycled.toFixed(0)} kg</span></div>}
-                          <div className="h-2 bg-slate-100 rounded-full overflow-hidden mt-1 flex">
-                            <div className="bg-red-400 h-full" style={{ width: `${(virgin / ndfebPerTurbine) * 100}%` }} />
-                            {recycled > 0 && <div className="bg-emerald-400 h-full" style={{ width: `${(recycled / ndfebPerTurbine) * 100}%` }} />}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className={`rounded-lg p-4 border-2 text-center transition-all ${lifecycleRecycling ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200'}`}>
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">Cumulative NdFeB — 3 generations (60 years)</p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-                    <div><p className="text-2xl font-black text-red-600">{totalVirgin.toFixed(0)} kg</p><p className="text-xs text-slate-600">Virgin material needed</p></div>
-                    {lifecycleRecycling && (
-                      <>
-                        <div className="hidden sm:block text-slate-300 text-xl">|</div>
-                        <div><p className="text-2xl font-black text-emerald-600">{totalSaved.toFixed(0)} kg</p><p className="text-xs text-slate-600">Saved vs. no recycling</p></div>
-                        <div className="hidden sm:block text-slate-300 text-xl">|</div>
-                        <div><p className="text-2xl font-black text-emerald-600">{((totalSaved / totalBaseline) * 100).toFixed(0)}%</p><p className="text-xs text-slate-600">Reduction in mining</p></div>
-                      </>
-                    )}
+
+                {/* Reflection Question */}
+                <div className="mt-6 bg-blue-50 rounded-xl p-5 border-2 border-blue-200">
+                  <div className="flex items-start gap-4">
+                    <HelpCircle className="text-blue-600 shrink-0 mt-1" size={28} />
+                    <div>
+                      <p className="text-lg font-bold text-slate-800 mb-2">Critical Thinking Question</p>
+                      <p className="text-base text-slate-700 leading-relaxed">
+                        What do you think needs to change to increase the recycling rate from &lt;1% to a level that would make the offshore wind industry truly circular?
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <p className="text-xs text-slate-500 mt-3 text-center italic">Current global rare-earth recycling rate is &lt;1%. Scaling recycling is essential for the energy transition.</p>
+
+                {/* References Footer */}
+                <div className="mt-6 pt-4 border-t border-slate-200">
+                  <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">References</p>
+                  <ol className="text-[11px] text-slate-400 space-y-1 list-decimal list-inside">
+                    <li>UNEP (2011). Recycling Rates of Metals: A Status Report. United Nations Environment Programme.</li>
+                    <li>Reuter, M. A., et al. (2019). The challenges of circular economy: A metallurgical and product design perspective. Annual Review of Materials Research.</li>
+                    <li>Weng, Z., et al. (2015). Assessing the ecological cost of rare earth element extraction. Journal of Cleaner Production.</li>
+                  </ol>
+                </div>
+
               </div>
             </div>
           </div>
