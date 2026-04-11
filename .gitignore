@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Helper directories and files
+steps_to_update.txt
+Design System Reference.md
+Enhancement_Roadmap.md
